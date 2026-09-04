@@ -34,7 +34,9 @@ export function ContributeButton() {
   );
 }
 
-function ContributeModal({ onClose }: { onClose: () => void }) {
+// Exported so other components (like the promo popup) can open this
+// modal directly without needing their own ContributeButton wrapper.
+export function ContributeModal({ onClose }: { onClose: () => void }) {
   const [departments, setDepartments] = useState<Department[]>([]);
   const [modules, setModules] = useState<Module[]>([]);
   const [loadingMeta, setLoadingMeta] = useState(true);

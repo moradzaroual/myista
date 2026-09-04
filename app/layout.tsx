@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Footer } from "@/components/Footer";
 import "./globals.css";
+import { ContributePromo } from "@/components/ContributePromo";
 
 export const metadata: Metadata = {
   title: "MYISTA — Business & Management Study Resources",
@@ -17,6 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         {children}
+        <ContributePromo />
         <Footer />
       </body>
     </html>
