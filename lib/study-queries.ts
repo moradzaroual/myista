@@ -132,6 +132,12 @@ export async function searchResources(term: string, limit = 6): Promise<Resource
     )
     .slice(0, limit);
 }
+export async function getModuleResources(moduleId: string): Promise<Resource[]> {
+  const { resources } = await fetchAllStudyData();
+  return resources.filter(
+    (r) => normalizeId(r.module_id) === normalizeId(moduleId)
+  );
+}
 
 export async function getAllResources(type?: ResourceType): Promise<Resource[]> {
   const { resources } = await fetchAllStudyData();

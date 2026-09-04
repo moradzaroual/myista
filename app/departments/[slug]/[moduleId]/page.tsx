@@ -14,12 +14,12 @@ interface ModulePageProps {
 export default async function ModulePage({ params }: ModulePageProps) {
   const { slug, moduleId } = await params;
 
-  const department = getDepartmentBySlug(slug);
-  const mod = getModuleById(moduleId);
+  const department = await getDepartmentBySlug(slug);
+  const mod = await getModuleById(moduleId);
 
   if (!department || !mod || mod.department_id !== department.id) notFound();
 
-  const resources = getModuleResources(mod.id);
+  const resources = await getModuleResources(mod.id);
 
   return (
     <div className="min-h-screen bg-[--color-background]">

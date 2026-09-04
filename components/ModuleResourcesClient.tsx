@@ -11,7 +11,7 @@ const TABS: { value: FilterValue; label: string }[] = [
   { value: "all", label: "All" },
   { value: "pdf", label: "PDFs" },
   { value: "slides", label: "Slides" },
-  { value: "video", label: "Videos" },
+  { value: "examens", label: "Examens" },
   { value: "blog", label: "Articles" },
 ];
 
