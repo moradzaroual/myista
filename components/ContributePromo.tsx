@@ -2,11 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ImageIcon, Sparkles } from "lucide-react";
+import { X, Sparkles } from "lucide-react";
 import { ContributeModal } from "@/components/ContributeModal";
 
 const DISMISS_KEY = "myista_contribute_promo_dismissed";
 const SHOW_DELAY_MS = 4000;
+
+const PROMO_IMAGE_URL =
+  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjP8z77B6FK1Nu4JNENffrkmh3uhSjItWQSpy4Sblh39nfJs_Z-aULuSZij4FDPtBAde7zz6xgi27H0VXl-veXEYjxsMSmu2kacQ76-3sVnJlPqg3P-0HjYNjd6tVGg0Ycv1vg5kn8ew1FbZvSR7N_pZS0HLNFzzOGivbT1e-FN2bvmMDgJQf1MmPwl558/s1600/pexels-cottonbro-6539026.jpg";
 
 export function ContributePromo() {
   const [isVisible, setIsVisible] = useState(false);
@@ -36,24 +39,41 @@ export function ContributePromo() {
       <AnimatePresence>
         {isVisible && (
           <motion.div
-            initial={{ opacity: 0, y: 40, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.96 }}
-            transition={{ duration: 0.35, ease: "easeOut" }}
-            className="fixed bottom-5 left-1/2 z-50 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 overflow-hidden rounded-2xl border border-[--color-border] bg-[--color-card] shadow-2xl sm:bottom-6 sm:left-auto sm:right-6 sm:max-w-lg sm:translate-x-0"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4"
+            onClick={handleDismiss}
           >
-            <button
-              type="button"
-              onClick={handleDismiss}
-              aria-label="Fermer"
-              className="absolute right-2.5 top-2.5 z-10 flex h-7 w-7 cursor-pointer items-center justify-center rounded-full bg-black/10 text-white transition-colors hover:bg-black/20 sm:text-[--color-muted-foreground] sm:bg-[--color-muted] sm:hover:bg-[--color-border]"
+            <motion.div
+              initial={{ opacity: 0, y: 20, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 10, scale: 0.96 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-xs overflow-hidden rounded-2xl border border-[--color-border] bg-[--color-card] shadow-2xl sm:max-w-md sm:grid sm:max-w-2xl sm:grid-cols-2"
             >
-              <X className="h-3.5 w-3.5" aria-hidden="true" />
-            </button>
+              <button
+                type="button"
+                onClick={handleDismiss}
+                aria-label="Fermer"
+                className="absolute right-2.5 top-2.5 z-10 flex h-7 w-7 cursor-pointer items-center justify-center rounded-full bg-black/15 text-white transition-colors hover:bg-black/25"
+              >
+                <X className="h-3.5 w-3.5" aria-hidden="true" />
+              </button>
 
-            <div className="grid grid-cols-2">
-              {/* Left column — call to action */}
-              <div className="col-span-2 flex flex-col justify-center gap-2.5 bg-[--color-primary] px-5 py-5 sm:col-span-1">
+              {/* Image */}
+              <div className="relative h-32 w-full sm:order-2 sm:h-full sm:min-h-[220px]">
+                <img
+                  src={PROMO_IMAGE_URL}
+                  alt=""
+                  className="h-full w-full object-cover"
+                />
+              </div>
+
+              {/* Text + CTA */}
+              <div className="flex flex-col justify-center gap-2.5 bg-[--color-primary] px-5 py-5 sm:order-1">
                 <span className="inline-flex w-fit items-center gap-1 rounded-full bg-white/15 px-2.5 py-1 text-[11px] font-semibold text-[--color-on-primary]">
                   <Sparkles className="h-3 w-3" aria-hidden="true" />
                   Communauté
@@ -73,19 +93,7 @@ export function ContributePromo() {
                   Contribuer maintenant
                 </button>
               </div>
-
-              {/* Right column — image placeholder, swap the div below for a real <img> */}
-              <div className="relative col-span-2 hidden min-h-[140px] sm:col-span-1 sm:block">
-                {/*
-                  Replace this placeholder block with:
-                  <img src="https://images.pexels.com/photos/6289171/pexels-photo-6289171.jpeg?cs=tinysrgb&dpr=1&w=500" alt="" className="h-full w-full object-cover" />
-                */}
-                <div className="flex h-full w-full flex-col items-center justify-center gap-1.5 bg-[--color-muted] text-[--color-muted-foreground]">
-                  <ImageIcon className="h-6 w-6" aria-hidden="true" />
-                  <span className="text-[10px] font-medium">Image ici</span>
-                </div>
-              </div>
-            </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
